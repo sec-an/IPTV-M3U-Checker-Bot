@@ -20,6 +20,7 @@ Python初学者，能力有限，还请见谅。
   - 对每个连接进行测试, 同时记录当前网络对该连接的延迟（参考<a href="https://github.com/EvilCult/iptv-m3u-maker" target=_blank>EvilCult/iptv-m3u-maker</a>）  
   - 将失效的直播源以文本形式通过钉钉群机器人通知
   <img src="https://cdn.juan0110.top/IPTV-M3U-Checker/ding_show.png" height = "300" alt="钉钉群通知展示" align=center />
+  
   - 通过DataFrame.to_html()在同目录下生成<a href="https://api.juan0110.top/IPTV-M3U-Checker/status.html" target=_blank>html_demo</a>，以链接形式通过钉钉群机器人发送
 
 ## 使用方法
@@ -41,8 +42,10 @@ pip3 install DingtalkChatbot
   - 群设置->智能群助手->添加机器人->添加机器人->自定义->添加
   - 获得`secret`
   <img src="https://cdn.juan0110.top/IPTV-M3U-Checker/ding_secret.png" height = "400" alt="secret" align=center />
+  
   - 获得`webhook`
   <img src="https://cdn.juan0110.top/IPTV-M3U-Checker/ding_webhook.png" height = "400" alt="secret" align=center />
+  
 
 - 主要参数  
   - webhook 填入钉钉群自定义机器人的token
