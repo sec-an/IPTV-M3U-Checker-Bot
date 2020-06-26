@@ -44,7 +44,7 @@ class Iptv(object):
     def __init__(self):
         self.T = utils.tools.Tools()
         self.DB = utils.db.DataBase()
-        self.now = int(time.time() * 1000)
+        self.now = time.strftime("%m-%d %H:%M", time.localtime())
 
     def getPlaylist(self):
 
@@ -93,7 +93,6 @@ class Iptv(object):
                     'title': tmp_title,
                     'url': tmp_url,
                     'delay': netstat,
-                    'updatetime': self.now,
                 }
                 self.addData(data)
 
@@ -102,13 +101,13 @@ class Iptv(object):
                     'title': tmp_title,
                     'url': tmp_url,
                     'delay': self.delay_threshold,
-                    'updatetime': self.now,
                 }
                 self.addData(data)
 
     def addData(self, data):
         self.DB.insert(data)
 
+    @property
     def output(self):
         sql = "SELECT * FROM %s WHERE delay='5000' " % (self.DB.table)
         result = self.DB.query(sql)
@@ -121,7 +120,50 @@ class Iptv(object):
         conn.cursor()
         sql_cmd = "SELECT * FROM %s" % (self.DB.table)
         df = pd.read_sql(sql_cmd, conn)
-        df.to_html("status.html")
+
+        # dataframe to html
+
+        HEADER = '''
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+            '''
+
+        FOOTER = '''
+    </body>
+</html>
+            '''
+        
+        def color_cell(cell):
+            if cell == self.delay_threshold:
+                return 'background-color: #DC143C'
+            elif cell > 3000:
+                return 'background-color: #FF1493'
+            elif cell > 1000:
+                return 'background-color: #FFFF00'
+            elif cell > 500:
+                return 'background-color: #90EE90'
+            else:
+                return 'background-color: #008000'
+        html = (
+                df.style
+                .set_caption('直播源状态 检测时间：%s' % (self.now))  # 设置表格标题
+                .hide_index()   # 不输出索引
+                .set_properties(**{'text-align': 'center'})
+                .set_properties(subset=['url'], **{'width': '50%', 'font-size': '10px'})
+                .applymap(color_cell, subset=['delay'])
+                .set_table_attributes("border='1'")
+                .set_table_styles(
+                    [{'selector': 'tr:hover',
+                      'props': [('background-color', 'yellow')]}])
+                .render()
+        )
+        with open('./status.html', 'w', encoding='utf-8') as f:
+            f.write(HEADER)
+            f.write(html)
+            f.write(FOOTER)
         xiaoding.send_link(title='直播源检测结束！', text='点击查看全部检测结果', message_url='https://your_domain/IPTV-M3U-Checker/status.html')
         conn.close()
 
@@ -131,5 +173,5 @@ if __name__ == '__main__':
     print('开始......')
     xiaoding.send_text(msg='直播源检测开始！', is_at_all=True)  # is_at_all @所有人
     iptv.checkPlayList(iptv.getPlaylist())
-    iptv.output()
+    iptv.output
     print('结束.....')
