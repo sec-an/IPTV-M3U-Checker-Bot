@@ -25,8 +25,10 @@ Python初学者，能力有限，还请见谅。
   - 支持测试有效直播源的连接速度
   - 将失效的直播源以文本形式通过钉钉群机器人通知
   <img src="https://cdn.juan0110.top/IPTV-M3U-Checker/ding_show.png" height = "300" alt="钉钉群通知展示" align=center />
+  
   - 通过`DataFrame.to_excel()`在`output/`目录下生成全部测试结果的<a href="https://view.officeapps.live.com/op/view.aspx?src=https://cdn.juan0110.top/IPTV-M3U-Checker/20200627_092048_Qch3z0o4JRRu9F0QM96PVQ.xlsx" target="_blank">Excel 预览</a>，以链接形式通过钉钉群机器人发送
-  <img src="https://cdn.juan0110.top/IPTV-M3U-Checker/excel_preview.png" height = "300" alt="钉钉群通知展示" align=center />
+  <img src="https://cdn.juan0110.top/IPTV-M3U-Checker/excel_preview.png" height = "400" alt="钉钉群通知展示" align=center />
+  
   - 生成的文件名以`测试时间+token`命名，防止直播源泄露
 
 ## 使用方法
