@@ -51,6 +51,7 @@ pip3 install openpyxl
   - 群设置->智能群助手->添加机器人->添加机器人->自定义->添加
   - 获得`secret`
   <img src="https://cdn.juan0110.top/IPTV-M3U-Checker/ding_secret.png" height = "400" alt="secret" align=center />
+  
   - 获得`webhook`
   <img src="https://cdn.juan0110.top/IPTV-M3U-Checker/ding_webhook.png" height = "400" alt="secret" align=center />
 
