@@ -5,14 +5,18 @@
 # @Author  : An Ju
 # @Email   : juan_0525@outlook.com
 # @File    : main.py
+
 import utils.tools
 import utils.db
+import utils.downloader
 import time
 import os
 import requests
 import sys
 import pandas as pd
 import sqlite3
+import secrets
+from openpyxl.workbook import Workbook
 from dingtalkchatbot.chatbot import DingtalkChatbot
 
 # WebHook地址
@@ -20,6 +24,12 @@ webhook = 'https://oapi.dingtalk.com/robot/send?access_token=这里填写自己�
 secret = 'SEC11b9...这里填写自己的加密设置密钥'  # 创建机器人勾选“加签”选项时使用
 # 初始化机器人小丁
 xiaoding = DingtalkChatbot(webhook, secret=secret)
+
+# 是否需要测试连接速度 True or False
+SpeedTest = False
+
+# 在线预览文件域名 http / https
+your_domain = 'https://list.domain.com'
 
 '''
 支持检测多个在线.txt文件
@@ -39,12 +49,13 @@ if len(sys.argv) > 1:
 
 class Iptv(object):
     playlist_file = 'playlists/'
+    output_file = 'output/'
     delay_threshold = 5000  # 响应延迟阈值，单位毫秒。超过这个阈值则认为直播源质量较差
 
     def __init__(self):
         self.T = utils.tools.Tools()
         self.DB = utils.db.DataBase()
-        self.now = time.strftime("%m-%d %H:%M", time.localtime())
+        self.now = time.strftime("%Y%m%d_%H%M%S", time.localtime())
 
     def getPlaylist(self):
 
@@ -87,12 +98,13 @@ class Iptv(object):
             print('Checking[ %s / %s ]:%s' % (i, total, tmp_title))
 
             netstat = self.T.chkPlayable(tmp_url)
-            # print(netstat)
-            if netstat > 0 and netstat < self.delay_threshold:
+            if 0 < netstat < self.delay_threshold:
+                speed = utils.downloader.start(tmp_url) / 1024 / 1024 if SpeedTest else 0
                 data = {
                     'title': tmp_title,
                     'url': tmp_url,
                     'delay': netstat,
+                    'speed': "%s Mb/s" % "{:.2f}".format(speed) if speed > 0 else "NaN"
                 }
                 self.addData(data)
 
@@ -101,6 +113,7 @@ class Iptv(object):
                     'title': tmp_title,
                     'url': tmp_url,
                     'delay': self.delay_threshold,
+                    'speed': "NaN"
                 }
                 self.addData(data)
 
@@ -121,21 +134,6 @@ class Iptv(object):
         sql_cmd = "SELECT * FROM %s" % (self.DB.table)
         df = pd.read_sql(sql_cmd, conn)
 
-        # dataframe to html
-
-        HEADER = '''
-<html>
-    <head>
-        <meta charset="UTF-8">
-    </head>
-    <body>
-            '''
-
-        FOOTER = '''
-    </body>
-</html>
-            '''
-        
         def color_cell(cell):
             if cell == self.delay_threshold:
                 return 'background-color: #DC143C'
@@ -147,24 +145,17 @@ class Iptv(object):
                 return 'background-color: #90EE90'
             else:
                 return 'background-color: #008000'
-        html = (
+        self.T.mkdir(self.output_file)
+        self.T.del_file(self.output_file)
+        title = self.now + '_' + secrets.token_urlsafe(16)
+        out = (
                 df.style
-                .set_caption('直播源状态 检测时间：%s' % (self.now))  # 设置表格标题
-                .hide_index()   # 不输出索引
                 .set_properties(**{'text-align': 'center'})
-                .set_properties(subset=['url'], **{'width': '50%', 'font-size': '10px'})
                 .applymap(color_cell, subset=['delay'])
-                .set_table_attributes("border='1'")
-                .set_table_styles(
-                    [{'selector': 'tr:hover',
-                      'props': [('background-color', 'yellow')]}])
-                .render()
+                .to_excel("./%s/%s.xlsx" % (self.output_file, title), index=False)
         )
-        with open('./status.html', 'w', encoding='utf-8') as f:
-            f.write(HEADER)
-            f.write(html)
-            f.write(FOOTER)
-        xiaoding.send_link(title='直播源检测结束！', text='点击查看全部检测结果', message_url='https://your_domain/IPTV-M3U-Checker/status.html')
+       
+        xiaoding.send_link(title='直播源检测结束！', text='点击查看全部检测结果', message_url='https://view.officeapps.live.com/op/view.aspx?src=%s/IPTV-M3U-Checker/%s/%s.xlsx' % (your_domain, self.output_file, title))
         conn.close()
 
 
