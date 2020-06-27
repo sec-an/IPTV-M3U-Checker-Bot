@@ -1,1 +1,13 @@
 demo,http://test.demo.m3u8
+东方卫视,http://140.207.241.2:8080/live/program/live/hddfws/4000000/mnf.m3u8
+东方卫视,http://107.148.240.185:13164/v/cctv.php?id=2000292403.m3u8
+纪实人文,http://gslbserv.itv.cmvideo.cn/index.m3u8?channel-id=ystenlive&Contentid=1000000001000010606&livemode=1&stbId=4
+五星体育,http://101.75.248.85/cache.ott.bestlive.itv.cmvideo.cn/000000001000/5000000010000017540/index.m3u8?channel-id=bestzb&Contentid=5000000010000017540&livemode=1&stbId=004003FF0017301364008422F151297C&userToken=22da83031e59d012e61af366ad30871e02vv&usergroup=g02020000000&version=1.0&owaccmark=5000000010000017540&owchid=bestzb&owsid=4493204831455228383&AuthInfo=N%2biD7%2bHgi9LcszGFRGa51uAqiHNpkS5d0%2fEIXqMyy8J6GNpZ%2bE47AWi696WsOzmj7u8gynrDaeemmd3KgHvW7jm8s%2fkPykV1GmMdpMkc7doBK82U9CVAXx34x1%2fYjl4A
+CCTV-5+体育赛事,http://107.148.240.185:13164/v/cctv.php?id=2000204503.m3u8
+CCTV-13新闻,http://107.148.240.185:13164/v/cctv.php?id=2000204603.m3u8
+奥运频道,http://ott-live.olympicchannel.com/out/u/OC1_1.m3u8
+CCTV-高尔夫·网球,http://k3.skyhi.top:8888/udp/239.253.43.12:5146
+天津卫视,http://101.227.140.13/live-cnc-cdn.ysp.cctv.cn/ysp/2000295103.m3u8
+山西卫视,http://springrain.top/shuliyun.php?id=166
+北京冬奥纪实,http://ivi.bupt.edu.cn/hls/btv11hd.m3u8
+江西卫视,http://101.227.140.13/live-cnc-cdn.ysp.cctv.cn/ysp/2000294103.m3u8
