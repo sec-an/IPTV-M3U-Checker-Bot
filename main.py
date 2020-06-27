@@ -155,7 +155,10 @@ class Iptv(object):
                 .to_excel("./%s/%s.xlsx" % (self.output_file, title), index=False)
         )
        
-        xiaoding.send_link(title='直播源检测结束！', text='点击查看全部检测结果', message_url='https://view.officeapps.live.com/op/view.aspx?src=%s/IPTV-M3U-Checker/%s/%s.xlsx' % (your_domain, self.output_file, title))
+        if your_domain:
+            xiaoding.send_link(title='直播源检测结束！', text='点击查看全部检测结果', message_url='https://view.officeapps.live.com/op/view.aspx?src=%s/IPTV-M3U-Checker/%s/%s.xlsx' % (your_domain, self.output_file, title))
+        else:
+            pass
         conn.close()
 
 
