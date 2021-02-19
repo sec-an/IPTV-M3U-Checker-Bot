@@ -24,10 +24,10 @@ Python初学者，能力有限，还请见谅。
   - 对每个连接进行测试，同时记录当前网络对该连接的延迟（参考<a href="https://github.com/EvilCult/iptv-m3u-maker" target="_blank">EvilCult/iptv-m3u-maker</a>）  
   - 支持测试有效直播源的连接速度
   - 将失效的直播源以文本形式通过钉钉群机器人通知
-  <img src="https://cdn.juan0110.top/IPTV-M3U-Checker/ding_show.png" height = "300" alt="钉钉群通知展示" align=center />
+  <img src="https://ae01.alicdn.com/kf/Ud43b3682d4494d45a0248eace0178187E.jpg" height = "300" alt="钉钉群通知展示" align=center />
   
-  - 通过`DataFrame.to_excel()`在`output/`目录下生成全部测试结果的<a href="https://view.officeapps.live.com/op/view.aspx?src=https://cdn.juan0110.top/IPTV-M3U-Checker/20200627_092048_Qch3z0o4JRRu9F0QM96PVQ.xlsx" target="_blank">Excel 预览</a>，以链接形式通过钉钉群机器人发送
-  <img src="https://cdn.juan0110.top/IPTV-M3U-Checker/excel_preview.png" height = "400" alt="钉钉群通知展示" align=center />
+  - 通过`DataFrame.to_excel()`在`output/`目录下生成全部测试结果的Excel 预览，以链接形式通过钉钉群机器人发送
+  <img src="https://ae01.alicdn.com/kf/U080f091db1d24cc788b72b65efef7b64H.jpg" height = "400" alt="钉钉群通知展示" align=center />
   
   - 生成的文件名以`测试时间+token`命名，防止直播源泄露
 
@@ -50,10 +50,10 @@ pip3 install openpyxl
 
   - 群设置->智能群助手->添加机器人->添加机器人->自定义->添加
   - 获得`secret`
-  <img src="https://cdn.juan0110.top/IPTV-M3U-Checker/ding_secret.png" height = "400" alt="secret" align=center />
+  <img src="https://ae01.alicdn.com/kf/Uafc4e58d1f1746d5ae834f3e0bc38227i.jpg" height = "400" alt="secret" align=center />
   
   - 获得`webhook`
-  <img src="https://cdn.juan0110.top/IPTV-M3U-Checker/ding_webhook.png" height = "400" alt="secret" align=center />
+  <img src="https://ae01.alicdn.com/kf/U78defb7a5d954af5ae962d4b40b81d34D.jpg" height = "400" alt="secret" align=center />
 
 - 主要参数  
   - `webhook`：填入钉钉群自定义机器人的token
